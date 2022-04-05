@@ -1,0 +1,6 @@
+first name, family name, age
+Ayhem, Bouabid, 21
+Anna, Bitch, 25
+Sarra, Num, 22
+Julia, really, 23
+Salim, Khlifa, 20
