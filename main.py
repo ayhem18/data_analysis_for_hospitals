@@ -8,7 +8,8 @@ sports = 'test/sports.csv'
 lines_display = 20
 random_state_value = 30
 
-if __name__ == '__main__':
+
+def stage2_implementation():
     general_df = pd.read_csv(general)
     prenatal_df = pd.read_csv(prenatal)
     sports_df = pd.read_csv(sports)
@@ -24,3 +25,7 @@ if __name__ == '__main__':
     hospitals.drop(columns=hospitals.columns[0], inplace=True)
 
     print(hospitals.sample(n=lines_display, random_state=random_state_value))
+
+
+if __name__ == '__main__':
+    pass
