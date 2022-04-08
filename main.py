@@ -50,10 +50,45 @@ def stage3_implementation():
     hospitals[zero_columns] = hospitals[zero_columns].fillna(0)
 
     # print the shape of the dataframe
-    print(hospitals.shape)
+    # print(hospitals.shape)
 
-    print(hospitals.sample(n=lines_display, random_state=random_state_value))
+    # print(hospitals)
+    return hospitals
+
+
+stomach = 'stomach'
+dislocation = 'dislocation'
+
+
+def stage4_implementation():
+    hospitals = stage3_implementation()
+
+    # determine the hospital with the largest number of patients
+    # print(hospitals[hospital_type].mode()[0])
+
+    # determine the share of patients in the general hospital that suffer from stomach related issues
+
+    general_patients = hospitals.loc[hospitals.hospital == 'general', :].shape[0]
+    general_patients_stomach = \
+        hospitals.loc[(hospitals.diagnosis == stomach) & (hospitals.hospital == 'general'), :].shape[0]
+
+    print(round(general_patients_stomach / general_patients, 3))
+
+    # determine the share of patients in the sports hospital that suffer from dislocation-related issues
+
+    sports_patients = hospitals.loc[
+                      (hospitals.hospital == 'sports') & (hospitals.diagnosis == dislocation), :].shape[0]
+
+    sports_patients_dislocation = \
+        hospitals.loc[hospitals.diagnosis == dislocation, :].shape[0]
+
+    print(round(sports_patients_dislocation / sports_patients, 3))
+
+    # find the difference in median ages of the patient in general and the one in sports
+    new_table = pd.pivot_table(hospitals, index='hospital', values='age', aggfunc='median')
+    print(new_table)
+    print(new_table.loc['general', 'age'] - new_table.loc['sports', 'age'])
 
 
 if __name__ == '__main__':
-    stage3_implementation()
+    stage4_implementation()
