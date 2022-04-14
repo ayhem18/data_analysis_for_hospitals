@@ -1,4 +1,5 @@
 import pandas as pd
+import graphs as g
 
 pd.set_option('display.max_columns', 8)
 
@@ -39,7 +40,7 @@ def stage3_implementation():
     hospitals.dropna(axis='index', how='all', inplace=True)
 
     # unify the genders
-    hospitals.loc[:, gender] = [gender_mapper[g] if g in gender_mapper else g for g in hospitals[gender]]
+    hospitals.loc[:, gender] = [gender_mapper[g] if gen in gender_mapper else gen for gen in hospitals[gender]]
 
     # replace the Nan values with f in the prenatal hospital
     hospitals[gender] = hospitals.groupby(hospital_type)[gender].apply(lambda x: x.fillna('f'))
@@ -52,7 +53,7 @@ def stage3_implementation():
     # print the shape of the dataframe
     # print(hospitals.shape)
 
-    # print(hospitals.head(10))
+    print(hospitals.head(10))
     return hospitals
 
 
@@ -102,5 +103,22 @@ def stage4_implementation():
                            str(max_blood_test)))
 
 
+def stage5_implementation():
+    hospitals = stage3_implementation()
+    g.plot_age_histogram(hospitals['age'].tolist())
+    g.plot_diagnosis_pie_char(hospitals['diagnosis'].tolist())
+
+    # plot the heights
+    heights = hospitals.loc[:, 'height'].tolist()
+    g.plot_height_violin_plot_unified(heights)
+
+    print("The answer to the 1st question: 15-35")
+    print("The answer to the 2nd question: pregnancy")
+    print("The answer to the 3rd question: the gap between values as well as the presence of two peeks"
+          " can be explained by the use of two different measurement systems. As the height in both prenatal "
+          "and general is the meter while the sports hospital uses the imperial system: feet where a foot is"
+          " 0.3048 meters")
+
+
 if __name__ == '__main__':
-    stage4_implementation()
+    stage5_implementation()
