@@ -45,8 +45,6 @@ def stage3_implementation():
     # replace the Nan values with f in the prenatal hospital
     hospitals[gender] = hospitals.groupby(hospital_type)[gender].apply(lambda x: x.fillna('f'))
 
-    # print(hospitals.loc[hospitals.hospital == 'prenatal', ['hospital', 'gender']])
-    # print("####################################")
     # replace the Nan values with 0 in the corresponding columns
     hospitals[zero_columns] = hospitals[zero_columns].fillna(0)
 
